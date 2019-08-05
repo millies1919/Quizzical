@@ -1,0 +1,25 @@
+.body {
+    text-align: center;
+}
+
+#pagetitle {
+    font-family: monospace;
+}
+
+#testcontainer {
+    margin: 100px 400px 600px 400px;
+    border: black solid 10px;
+    width: 60%;
+    height: 500px;
+}
+
+.testtitle {
+    font-family: monospace;
+    margin: 150px 50px 50px 50px;
+}
+
+#startbutton {
+    height: 50px;
+    width: 400px;
+    margin: 15px;
+}
