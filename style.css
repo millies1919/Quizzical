@@ -28,7 +28,12 @@
     font-family: monospace;
 }
 
-.answerbutton {
+.false {
     margin: 10px;
     font-family: monospace;
+}
+
+.true {
+    margin: 10px;
+    font-family: monospace; 
 }

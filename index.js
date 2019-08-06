@@ -1,4 +1,5 @@
 var questionsdata = null;
+var wrongcount =0
 const url = 'https://opentdb.com/api.php?amount=10&type=multiple';
 
 function getQuestions() {
@@ -58,12 +59,24 @@ function createQuestionOne(question, answers){
   var buttonee = document.createElement("div");
   var buttoncontainer = container.appendChild(buttonee);
     buttoncontainer.setAttributeNode(questionId);
+  var count = 0
 
   for(var i = 0; i < answers.length; i++){
     var buttons = document.createElement("button");
     buttoncontainer.appendChild(buttons);
     buttons.innerText = answers[i].answer;
-    buttons.classList.add('answerbutton');
+    buttons.id = "answerbutton" + count
+    buttons.classList.add(answers[i].correct)
+    buttons.onclick = correctness;
+    count++
+  }
+}
+
+function correctness() {
+     if (this.className === "true"){
+        alert("correct!")
+    } else { wrongcount++
+        console.log(wrongcount)
   }
 }
 
