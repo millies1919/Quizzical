@@ -1,5 +1,5 @@
 var questionsdata = null;
-var wrongcount =0
+var wrongcount = 0;
 const url = 'https://opentdb.com/api.php?amount=10&type=multiple';
 
 function getQuestions() {
@@ -23,7 +23,7 @@ function writeQuestionOne() {
                {"answer" : firstIncorrect[1], "correct" : false}, 
                {"answer" : firstIncorrect[2], "correct" : false}];
     shuffle(answers);
-    createQuestionOne(firstQuestion, answers);
+    createQuestion(firstQuestion, answers);
 }
 
 function shuffle(array) {
@@ -45,7 +45,7 @@ function shuffle(array) {
     return array;
   }
 
-function createQuestionOne(question, answers){
+function createQuestion(question, answers){
   var container = document.getElementById("testcontainer");
     container.innerHTML = "";
   var addId = document.createAttribute("id");
@@ -59,14 +59,14 @@ function createQuestionOne(question, answers){
   var buttonee = document.createElement("div");
   var buttoncontainer = container.appendChild(buttonee);
     buttoncontainer.setAttributeNode(questionId);
-  var count = 0
 
+  var count = 0
   for(var i = 0; i < answers.length; i++){
     var buttons = document.createElement("button");
     buttoncontainer.appendChild(buttons);
     buttons.innerText = answers[i].answer;
-    buttons.id = "answerbutton" + count
-    buttons.classList.add(answers[i].correct)
+    buttons.id = "answerbutton" + count;
+    buttons.classList.add(answers[i].correct);
     buttons.onclick = correctness;
     count++
   }
@@ -74,10 +74,28 @@ function createQuestionOne(question, answers){
 
 function correctness() {
      if (this.className === "true"){
-        alert("correct!")
-    } else { wrongcount++
-        console.log(wrongcount)
+        alert("correct!");
+    } else { wrongcount++;
   }
+  getQuestion();
+  createQuestion();
+}
+
+function getQuestion () {
+    var correct = []
+    var incorrect = [[]]
+    var quests = []
+    for(var i = 0; i < questionsdata.length; i++){
+        quests[i] = questionsdata[i].question;
+        incorrect[i] = questionsdata[i].incorrect_answers;
+        correct[i] = questionsdata[i].correct_answer;
+        answers[i] = [{"answer" : correct, "correct" : true}, 
+                   {"answer" : incorrect[i][0], "correct" : false}, 
+                   {"answer" : incorrect[i][1], "correct" : false}, 
+                   {"answer" : incorrect[i][2], "correct" : false}];
+    }
+    console.log(quests)
+    console.log(answers)
 }
 
 function start() {
