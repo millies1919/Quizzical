@@ -1,8 +1,11 @@
 var questionsdata = null;
 var wrongcount = 0;
+var questionCount = 0;
+var answers = [];
+var questions = [];
 const url = 'https://opentdb.com/api.php?amount=10&type=multiple';
 
-function getQuestions() {
+function getData() {
 fetch(url)
     .then((resp) => resp.json())
     .then(function(data){
@@ -14,16 +17,19 @@ fetch(url)
   // add start button creation to load
 }
 
-function writeQuestionOne() {
-    var firstQuestion = questionsdata[0].question;
-    var firstIncorrect = questionsdata[0].incorrect_answers;
-    var firstCorrect = questionsdata[0].correct_answer;
-    answers = [{"answer" : firstCorrect, "correct" : true}, 
-               {"answer" : firstIncorrect[0], "correct" : false}, 
-               {"answer" : firstIncorrect[1], "correct" : false}, 
-               {"answer" : firstIncorrect[2], "correct" : false}];
+function getQuestion () {
+    var correct = []
+    var incorrect = []
+    for(var i = 0; i < questionsdata.length; i++){
+        questions[i] = questionsdata[i].question;
+        incorrect[i] = questionsdata[i].incorrect_answers;
+        correct[i] = questionsdata[i].correct_answer;
+        answers[i] = [{"answer" : correct[i], "correct" : true}, 
+                      {"answer" : incorrect[i][0], "correct" : false}, 
+                      {"answer" : incorrect[i][1], "correct" : false}, 
+                      {"answer" : incorrect[i][2], "correct" : false}];
+    }
     shuffle(answers);
-    createQuestion(firstQuestion, answers);
 }
 
 function shuffle(array) {
@@ -45,7 +51,7 @@ function shuffle(array) {
     return array;
   }
 
-function createQuestion(question, answers){
+function createQuestionElements(question){
   var container = document.getElementById("testcontainer");
     container.innerHTML = "";
   var addId = document.createAttribute("id");
@@ -54,50 +60,50 @@ function createQuestion(question, answers){
     question_title.setAttributeNode(addId);
     container.appendChild(question_title);
     question_title.innerText = question;
-  var questionId = document.createAttribute("id");
-    questionId.value = "answers";
-  var buttonee = document.createElement("div");
-  var buttoncontainer = container.appendChild(buttonee);
-    buttoncontainer.setAttributeNode(questionId);
 
-  var count = 0
-  for(var i = 0; i < answers.length; i++){
-    var buttons = document.createElement("button");
-    buttoncontainer.appendChild(buttons);
-    buttons.innerText = answers[i].answer;
-    buttons.id = "answerbutton" + count;
-    buttons.classList.add(answers[i].correct);
-    buttons.onclick = correctness;
-    count++
-  }
+    createButtons(container);
 }
+
+function createButtons(container) {
+    var questionId = document.createAttribute("id");
+      questionId.value = "answers";
+    var buttonee = document.createElement("div");
+    var buttoncontainer = container.appendChild(buttonee);
+      buttoncontainer.setAttributeNode(questionId);
+  
+    var count = 0
+    for(var i = 0; i < answers.length; i++){
+      var buttons = document.createElement("button");
+      buttoncontainer.appendChild(buttons);
+      buttons.innerText = answers[i].answer;
+      buttons.id = "answerbutton" + count;
+      buttons.classList.add(answers[i].correct);
+      buttons.onclick = correctness;
+      count++
+    }
+  }
 
 function correctness() {
      if (this.className === "true"){
         alert("correct!");
     } else { wrongcount++;
   }
+  questionCount++
   getQuestion();
-  createQuestion();
+  pickQuestion();
+  question = questions[questionCount]
+  createQuestionElements(question);
 }
 
-function getQuestion () {
-    var correct = []
-    var incorrect = [[]]
-    var quests = []
-    for(var i = 0; i < questionsdata.length; i++){
-        quests[i] = questionsdata[i].question;
-        incorrect[i] = questionsdata[i].incorrect_answers;
-        correct[i] = questionsdata[i].correct_answer;
-        answers[i] = [{"answer" : correct, "correct" : true}, 
-                   {"answer" : incorrect[i][0], "correct" : false}, 
-                   {"answer" : incorrect[i][1], "correct" : false}, 
-                   {"answer" : incorrect[i][2], "correct" : false}];
-    }
-    console.log(quests)
-    console.log(answers[1])
-}
+
 
 function start() {
-    writeQuestionOne();
+    getQuestion();
+    pickQuestion();
+}
+
+function pickQuestion() {
+    question = questions[questionCount]
+    answers = answers[questionCount]
+    createQuestionElements(question, answers);
 }
