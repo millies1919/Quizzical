@@ -95,7 +95,7 @@ function getQuestion () {
                    {"answer" : incorrect[i][2], "correct" : false}];
     }
     console.log(quests)
-    console.log(answers)
+    console.log(answers[1])
 }
 
 function start() {
