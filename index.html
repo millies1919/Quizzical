@@ -5,11 +5,13 @@
         <title>Quizzical</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body class="body">
+    <body class="body" onload="getQuestions();">
         <h1 id="pagetitle">Quizzical: The Trivia Minigame!</h1>
         <div id="testcontainer">
-            <h1 class="testtitle">Test your knowledge with Quizzical!</h1>
-            <button id="startbutton" onclick="start(url);">Start</button>
+            <div id="titlecontainer">
+                <h1 class="testtitle" id="testtitle">Test your knowledge with Quizzical!</h1>
+                <button id="startbutton" onclick="start();">Start</button>
+            </div>
         </div>
         <ul id="questions"></ul>
     </body>

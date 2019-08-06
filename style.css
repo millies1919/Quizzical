@@ -23,3 +23,12 @@
     width: 400px;
     margin: 15px;
 }
+
+#questiontitle {
+    font-family: monospace;
+}
+
+.answerbutton {
+    margin: 10px;
+    font-family: monospace;
+}
