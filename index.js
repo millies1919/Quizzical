@@ -28,8 +28,11 @@ function getQuestion () {
                       {"answer" : incorrect[i][0], "correct" : false}, 
                       {"answer" : incorrect[i][1], "correct" : false}, 
                       {"answer" : incorrect[i][2], "correct" : false}];
+        shuffle(answers[i]);
+        questions[i] = questions[i].replace(new RegExp('&quot;', 'g'), '"');
+        questions[i] = questions[i].replace(new RegExp('&#039;', 'g'), "'");
+        questions[i] = questions[i].replace(new RegExp('&rsquo;', 'g'), "'");
     }
-    shuffle(answers);
 }
 
 function shuffle(array) {
@@ -67,8 +70,8 @@ function createQuestionElements(question){
 function createButtons(container) {
     var questionId = document.createAttribute("id");
       questionId.value = "answers";
-    var buttonee = document.createElement("div");
-    var buttoncontainer = container.appendChild(buttonee);
+    var buttondiv = document.createElement("div");
+    var buttoncontainer = container.appendChild(buttondiv);
       buttoncontainer.setAttributeNode(questionId);
   
     var count = 0
@@ -86,16 +89,38 @@ function createButtons(container) {
 function correctness() {
      if (this.className === "true"){
         alert("correct!");
-    } else { wrongcount++;
+    } else { 
+        alert("Incorrect")
+        wrongcount++;
   }
   questionCount++
   getQuestion();
   pickQuestion();
   question = questions[questionCount]
+  if(questionCount < 11){
   createQuestionElements(question);
+  } else {
+  // completion function
+  }
 }
 
+function completionScreen(){
+  var container = document.getElementById("testcontainer");
+    container.innerHTML = "";
+  var resultsId = document.createAttribute("id");
+    resultsId.value = "results";
+  var resultsdiv = document.createElement("div");
+  var resultscontainer = container.appendChild(resultsdiv);
+    resultscontainer.setAttributeNode(questionId);    
+    resultscontainer.createElement("h2")
 
+
+    if (wrongcount < 4) {
+        return "You Passed!"
+    } else {
+        return "You Failed!"
+    }                   
+}
 
 function start() {
     getQuestion();
