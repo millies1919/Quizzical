@@ -24,8 +24,8 @@ function getQuestion () {
         questions[i] = questionsdata[i].question;
         incorrect[i] = questionsdata[i].incorrect_answers;
 
-    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;'];
-    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-']
+    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;"];
+    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á'];
 
         for (var j = 0; j < incorrect[i].length; j++) {
             for(var h = 0; h < characters.length; h++) {
@@ -66,9 +66,8 @@ function shuffle(array) {
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
-  
     return array;
-  }
+}
 
 
 
@@ -107,7 +106,7 @@ function createButtons(container) {
           buttons.onclick = correctness;
           count++
         }
-  }
+}
 
 function correctness() {
      if (this.className === "true"){
@@ -119,8 +118,8 @@ function correctness() {
   questionCount++
     getQuestion();
     pickQuestion();
+}
 
-  }
 
 function completionScreen(){
   var container = document.getElementById("testcontainer");
@@ -133,11 +132,11 @@ function completionScreen(){
   var resultheader =  document.createElement("h2")
     resultscontainer.appendChild(resultheader)
 
-if (wrongCount < 4) {
+    if (wrongCount < 4) {
         resultheader.innerText = "You Passed";
-    } else {
+        } else {
         resultheader.innerText = "You Failed";
-    }
+        }
 
 var right = 10 - wrongCount;
 var wrong = wrongCount;
@@ -166,4 +165,4 @@ function pickQuestion() {
     answers = answers[questionCount]
     question = questions[questionCount]
     createQuestionElements(question, answers);
-    }
+}
