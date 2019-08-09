@@ -1,5 +1,5 @@
 var questionsdata = null;
-var wrongcount = 0;
+var wrongCount = 0;
 var questionCount = 0;
 var answers = [];
 var questions = [];
@@ -23,15 +23,31 @@ function getQuestion () {
     for(var i = 0; i < questionsdata.length; i++){
         questions[i] = questionsdata[i].question;
         incorrect[i] = questionsdata[i].incorrect_answers;
+
+    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;'];
+    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-']
+
+        for (var j = 0; j < incorrect[i].length; j++) {
+            for(var h = 0; h < characters.length; h++) {
+            incorrect[i][j] =  incorrect[i][j].replace(new RegExp(characters[h], 'g'), actual[h]);
+            }
+        }
+
         correct[i] = questionsdata[i].correct_answer;
+
+        for (var j = 0; j < characters.length; j++) {
+            correct[i] =  correct[i].replace(new RegExp(characters[j], 'g'), actual[j]);
+        }
+
         answers[i] = [{"answer" : correct[i], "correct" : true}, 
                       {"answer" : incorrect[i][0], "correct" : false}, 
                       {"answer" : incorrect[i][1], "correct" : false}, 
                       {"answer" : incorrect[i][2], "correct" : false}];
         shuffle(answers[i]);
-        questions[i] = questions[i].replace(new RegExp('&quot;', 'g'), '"');
-        questions[i] = questions[i].replace(new RegExp('&#039;', 'g'), "'");
-        questions[i] = questions[i].replace(new RegExp('&rsquo;', 'g'), "'");
+
+        for(var j = 0; j < characters.length; j++) {
+            questions[i] = questions[i].replace(new RegExp(characters[j], 'g'), actual[j]);
+        }
     }
 }
 
@@ -54,7 +70,11 @@ function shuffle(array) {
     return array;
   }
 
+
+
 function createQuestionElements(question){
+
+if(questionCount < 10){
   var container = document.getElementById("testcontainer");
     container.innerHTML = "";
   var addId = document.createAttribute("id");
@@ -65,6 +85,9 @@ function createQuestionElements(question){
     question_title.innerText = question;
 
     createButtons(container);
+} else {
+    completionScreen();
+    }
 }
 
 function createButtons(container) {
@@ -73,17 +96,17 @@ function createButtons(container) {
     var buttondiv = document.createElement("div");
     var buttoncontainer = container.appendChild(buttondiv);
       buttoncontainer.setAttributeNode(questionId);
-  
-    var count = 0
-    for(var i = 0; i < answers.length; i++){
-      var buttons = document.createElement("button");
-      buttoncontainer.appendChild(buttons);
-      buttons.innerText = answers[i].answer;
-      buttons.id = "answerbutton" + count;
-      buttons.classList.add(answers[i].correct);
-      buttons.onclick = correctness;
-      count++
-    }
+
+        var count = 0
+        for(var i = 0; i < answers.length; i++){
+          var buttons = document.createElement("button");
+          buttoncontainer.appendChild(buttons);
+          buttons.innerText = answers[i].answer;
+          buttons.id = "answerbutton" + count;
+          buttons.classList.add(answers[i].correct);
+          buttons.onclick = correctness;
+          count++
+        }
   }
 
 function correctness() {
@@ -91,18 +114,13 @@ function correctness() {
         alert("correct!");
     } else { 
         alert("Incorrect")
-        wrongcount++;
+        wrongCount++;
   }
   questionCount++
-  getQuestion();
-  pickQuestion();
-  question = questions[questionCount]
-  if(questionCount < 11){
-  createQuestionElements(question);
-  } else {
-  // completion function
+    getQuestion();
+    pickQuestion();
+
   }
-}
 
 function completionScreen(){
   var container = document.getElementById("testcontainer");
@@ -111,15 +129,31 @@ function completionScreen(){
     resultsId.value = "results";
   var resultsdiv = document.createElement("div");
   var resultscontainer = container.appendChild(resultsdiv);
-    resultscontainer.setAttributeNode(questionId);    
-    resultscontainer.createElement("h2")
+    resultscontainer.setAttributeNode(resultsId);    
+  var resultheader =  document.createElement("h2")
+    resultscontainer.appendChild(resultheader)
 
-
-    if (wrongcount < 4) {
-        return "You Passed!"
+if (wrongCount < 4) {
+        resultheader.innerText = "You Passed";
     } else {
-        return "You Failed!"
-    }                   
+        resultheader.innerText = "You Failed";
+    }
+
+var right = 10 - wrongCount;
+var wrong = wrongCount;
+percent = (right / 10) * 100;
+
+var resultsRight = document.createElement("p");
+    resultscontainer.appendChild(resultsRight);
+    resultsRight.innerText = "You got " + right + " questions correct!";
+
+var resultsWrong = document.createElement("p");
+    resultscontainer.appendChild(resultsWrong);
+    resultsWrong.innerText = "you got " + wrong + " questions wrong!";
+
+var resultsPercent = document.createElement("p");
+    resultscontainer.appendChild(resultsPercent);
+    resultsPercent.innerText = "Your score is " + percent + "%";
 }
 
 function start() {
@@ -130,5 +164,6 @@ function start() {
 function pickQuestion() {
     question = questions[questionCount]
     answers = answers[questionCount]
+    question = questions[questionCount]
     createQuestionElements(question, answers);
-}
+    }
