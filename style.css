@@ -28,12 +28,12 @@
     font-family: monospace;
 }
 
-.false {
+.correct {
     margin: 10px;
     font-family: monospace;
 }
 
-.true {
+.incorrect {
     margin: 10px;
     font-family: monospace; 
 }

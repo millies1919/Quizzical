@@ -24,8 +24,8 @@ function getQuestion () {
         questions[i] = questionsdata[i].question;
         incorrect[i] = questionsdata[i].incorrect_answers;
 
-    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;"];
-    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á'];
+    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;", '&aacute;'];
+    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á', 'á'];
 
         for (var j = 0; j < incorrect[i].length; j++) {
             for(var h = 0; h < characters.length; h++) {
@@ -39,10 +39,10 @@ function getQuestion () {
             correct[i] =  correct[i].replace(new RegExp(characters[j], 'g'), actual[j]);
         }
 
-        answers[i] = [{"answer" : correct[i], "correct" : true}, 
-                      {"answer" : incorrect[i][0], "correct" : false}, 
-                      {"answer" : incorrect[i][1], "correct" : false}, 
-                      {"answer" : incorrect[i][2], "correct" : false}];
+        answers[i] = [{"answer" : correct[i], "correct" : "correct"}, 
+                      {"answer" : incorrect[i][0], "correct" : "incorrect"}, 
+                      {"answer" : incorrect[i][1], "correct" : "incorrect"}, 
+                      {"answer" : incorrect[i][2], "correct" : "incorrect"}];
         shuffle(answers[i]);
 
         for(var j = 0; j < characters.length; j++) {
@@ -109,8 +109,8 @@ function createButtons(container) {
 }
 
 function correctness() {
-     if (this.className === "true"){
-        alert("correct!");
+     if (this.className === "correct"){
+        alert("Correct!");
     } else { 
         alert("Incorrect")
         wrongCount++;
