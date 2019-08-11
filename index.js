@@ -78,10 +78,10 @@ if(questionCount < 10){
     container.innerHTML = "";
   var addId = document.createAttribute("id");
     addId.value = "questiontitle";
-  var question_title = document.createElement("h2");
-    question_title.setAttributeNode(addId);
-    container.appendChild(question_title);
-    question_title.innerText = question;
+  var questionTitle = document.createElement("h2");
+    questionTitle.setAttributeNode(addId);
+    container.appendChild(questionTitle);
+    questionTitle.innerText = question;
 
     createButtons(container);
 } else {
@@ -92,14 +92,14 @@ if(questionCount < 10){
 function createButtons(container) {
     var questionId = document.createAttribute("id");
       questionId.value = "answers";
-    var buttondiv = document.createElement("div");
-    var buttoncontainer = container.appendChild(buttondiv);
-      buttoncontainer.setAttributeNode(questionId);
+    var buttonDiv = document.createElement("div");
+    var buttonContainer = container.appendChild(buttonDiv);
+      buttonContainer.setAttributeNode(questionId);
 
         var count = 0
         for(var i = 0; i < answers.length; i++){
           var buttons = document.createElement("button");
-          buttoncontainer.appendChild(buttons);
+          buttonContainer.appendChild(buttons);
           buttons.innerText = answers[i].answer;
           buttons.id = "answerbutton" + count;
           buttons.classList.add(answers[i].correct);
@@ -126,16 +126,16 @@ function completionScreen(){
     container.innerHTML = "";
   var resultsId = document.createAttribute("id");
     resultsId.value = "results";
-  var resultsdiv = document.createElement("div");
-  var resultscontainer = container.appendChild(resultsdiv);
-    resultscontainer.setAttributeNode(resultsId);    
-  var resultheader =  document.createElement("h2")
-    resultscontainer.appendChild(resultheader)
+  var resultsDiv = document.createElement("div");
+  var resultsContainer = container.appendChild(resultsDiv);
+    resultsContainer.setAttributeNode(resultsId);    
+  var resultHeader =  document.createElement("h2")
+    resultsContainer.appendChild(resultHeader)
 
     if (wrongCount < 4) {
-        resultheader.innerText = "You Passed";
+        resultHeader.innerText = "You Passed";
         } else {
-        resultheader.innerText = "You Failed";
+        resultHeader.innerText = "You Failed";
         }
 
 var right = 10 - wrongCount;
@@ -143,15 +143,15 @@ var wrong = wrongCount;
 percent = (right / 10) * 100;
 
 var resultsRight = document.createElement("p");
-    resultscontainer.appendChild(resultsRight);
+    resultsContainer.appendChild(resultsRight);
     resultsRight.innerText = "You got " + right + " questions correct!";
 
 var resultsWrong = document.createElement("p");
-    resultscontainer.appendChild(resultsWrong);
+    resultsContainer.appendChild(resultsWrong);
     resultsWrong.innerText = "you got " + wrong + " questions wrong!";
 
 var resultsPercent = document.createElement("p");
-    resultscontainer.appendChild(resultsPercent);
+    resultsContainer.appendChild(resultsPercent);
     resultsPercent.innerText = "Your score is " + percent + "%";
 }
 
