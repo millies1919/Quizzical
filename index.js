@@ -153,6 +153,17 @@ var resultsWrong = document.createElement("p");
 var resultsPercent = document.createElement("p");
     resultsContainer.appendChild(resultsPercent);
     resultsPercent.innerText = "Your score is " + percent + "%";
+
+var retry = document.createElement("button");
+    resultsContainer.appendChild(retry);
+    retry.innerText = "Play Again";
+    retry.onclick = restart;
+
+  getData();
+}
+
+function restart(){
+  location.reload();
 }
 
 function start() {
