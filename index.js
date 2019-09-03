@@ -8,10 +8,10 @@ const url = 'https://opentdb.com/api.php?amount=10&type=multiple';
 function getData() {
 fetch(url)
     .then((resp) => resp.json())
-    .then(function(data){
+    .then(function(data) {
         questionsdata = data.results;
   })
-    .catch(function(error){
+    .catch(function(error) {
         alert("Could not get any questions!");
   })
   // add start button creation to load
@@ -20,18 +20,18 @@ fetch(url)
 function getQuestion () {
     var correct = []
     var incorrect = []
-    for(var i = 0; i < questionsdata.length; i++){
+    for (var i = 0; i < questionsdata.length; i++) {
         questions[i] = questionsdata[i].question;
         incorrect[i] = questionsdata[i].incorrect_answers;
 
-    var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;", '&aacute;'];
-    var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á', 'á'];
+        var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;", '&aacute;'];
+        var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á', 'á'];
 
         for (var j = 0; j < incorrect[i].length; j++) {
-            for(var h = 0; h < characters.length; h++) {
+            for (var h = 0; h < characters.length; h++) {
             incorrect[i][j] =  incorrect[i][j].replace(new RegExp(characters[h], 'g'), actual[h]);
             }
-        }
+}
 
         correct[i] = questionsdata[i].correct_answer;
 
@@ -45,7 +45,7 @@ function getQuestion () {
                       {"answer" : incorrect[i][2], "correct" : "incorrect"}];
         shuffle(answers[i]);
 
-        for(var j = 0; j < characters.length; j++) {
+        for (var j = 0; j < characters.length; j++) {
             questions[i] = questions[i].replace(new RegExp(characters[j], 'g'), actual[j]);
         }
     }
@@ -71,9 +71,9 @@ function shuffle(array) {
 
 
 
-function createQuestionElements(question){
+function createQuestionElements(question) {
 
-if(questionCount < 10){
+if (questionCount < 10) {
   var container = document.getElementById("testcontainer");
     container.innerHTML = "";
   var addId = document.createAttribute("id");
@@ -97,7 +97,7 @@ function createButtons(container) {
       buttonContainer.setAttributeNode(questionId);
 
         var count = 0
-        for(var i = 0; i < answers.length; i++){
+        for (var i = 0; i < answers.length; i++) {
           var buttons = document.createElement("button");
           buttonContainer.appendChild(buttons);
           buttons.innerText = answers[i].answer;
@@ -109,19 +109,19 @@ function createButtons(container) {
 }
 
 function correctness() {
-     if (this.className === "correct"){
+     if (this.className === "correct") {
         alert("Correct!");
     } else { 
         alert("Incorrect")
         wrongCount++;
   }
-  questionCount++
+    questionCount++
     getQuestion();
     pickQuestion();
 }
 
 
-function completionScreen(){
+function completionScreen() {
   var container = document.getElementById("testcontainer");
     container.innerHTML = "";
   var resultsId = document.createAttribute("id");
@@ -162,7 +162,7 @@ var retry = document.createElement("button");
   getData();
 }
 
-function restart(){
+function restart() {
   location.reload();
 }
 
