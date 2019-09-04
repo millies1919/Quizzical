@@ -138,28 +138,28 @@ function completionScreen() {
         resultHeader.innerText = "You Failed";
         }
 
-var right = 10 - wrongCount;
-var wrong = wrongCount;
-percent = (right / 10) * 100;
+  var right = 10 - wrongCount;
+  var wrong = wrongCount;
+      percent = (right / 10) * 100;
 
-var resultsRight = document.createElement("p");
+  var resultsRight = document.createElement("p");
     resultsContainer.appendChild(resultsRight);
     resultsRight.innerText = "You got " + right + " questions correct!";
 
-var resultsWrong = document.createElement("p");
+  var resultsWrong = document.createElement("p");
     resultsContainer.appendChild(resultsWrong);
     resultsWrong.innerText = "you got " + wrong + " questions wrong!";
 
-var resultsPercent = document.createElement("p");
+  var resultsPercent = document.createElement("p");
     resultsContainer.appendChild(resultsPercent);
     resultsPercent.innerText = "Your score is " + percent + "%";
 
-var retry = document.createElement("button");
+  var retry = document.createElement("button");
     resultsContainer.appendChild(retry);
     retry.innerText = "Play Again";
     retry.onclick = restart;
 
-  getData();
+    getData();
 }
 
 function restart() {
