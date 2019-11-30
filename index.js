@@ -9,12 +9,15 @@ function getData() {
 fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
-        questionsdata = data.results;
+        questionsdata = data.results
+    })
+    .then(() => {
+      loadButton();
+      console.log(questionsdata)
   })
     .catch(function(error) {
         alert("Could not get any questions!");
   })
-  // add start button creation to load
 }
 
 function getQuestion () {
@@ -24,8 +27,8 @@ function getQuestion () {
         questions[i] = questionsdata[i].question;
         incorrect[i] = questionsdata[i].incorrect_answers;
 
-        var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;", '&aacute;'];
-        var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á', 'á'];
+        var characters = ['&amp;;', '&quot;', '&#039;', '&rsquo;', '&ldquo;', '&rdquo;', '&eacute;', '&shy;', "&Uuml;", "&Aacute;", '&aacute;', '&oacute', '&amp;', '&lt;'];
+        var actual =  ['&', '"', "'", "'", '"', '"', 'é', '-', 'Ü', 'Á', 'á', 'ó', '&', '<'];
 
         for (var j = 0; j < incorrect[i].length; j++) {
             for (var h = 0; h < characters.length; h++) {
@@ -49,6 +52,11 @@ function getQuestion () {
             questions[i] = questions[i].replace(new RegExp(characters[j], 'g'), actual[j]);
         }
     }
+}
+
+function loadButton() {
+  const quizButton = document.querySelector('#startbutton');
+  quizButton.classList.remove('loading')
 }
 
 function shuffle(array) {
@@ -96,16 +104,16 @@ function createButtons(container) {
     var buttonContainer = container.appendChild(buttonDiv);
       buttonContainer.setAttributeNode(questionId);
 
-        var count = 0
-        for (var i = 0; i < answers.length; i++) {
-          var buttons = document.createElement("button");
-          buttonContainer.appendChild(buttons);
-          buttons.innerText = answers[i].answer;
-          buttons.id = "answerbutton" + count;
-          buttons.classList.add(answers[i].correct);
-          buttons.onclick = correctness;
-          count++
-        }
+    var count = 0
+    for (var i = 0; i < answers.length; i++) {
+      var buttons = document.createElement("button");
+        buttonContainer.appendChild(buttons);
+        buttons.innerText = answers[i].answer;
+        buttons.id = "answerbutton" + count;
+        buttons.classList.add(answers[i].correct, "ui", "red", "button");
+        buttons.onclick = correctness;
+        count++
+    }
 }
 
 function correctness() {
@@ -140,7 +148,7 @@ function completionScreen() {
 
   var right = 10 - wrongCount;
   var wrong = wrongCount;
-      percent = (right / 10) * 100;
+    percent = (right / 10) * 100;
 
   var resultsRight = document.createElement("p");
     resultsContainer.appendChild(resultsRight);
@@ -158,6 +166,7 @@ function completionScreen() {
     resultsContainer.appendChild(retry);
     retry.innerText = "Play Again";
     retry.onclick = restart;
+    retry.classList.add("ui", "red", "button");
 
     getData();
 }

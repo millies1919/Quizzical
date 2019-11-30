@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<hmtl>
+<html>
     <head>
         <script src="index.js"></script>
         <title>Quizzical</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     </head>
     <body class="body" onload="getData();">
-        <h1 id="pagetitle">Quizzical: The Trivia Minigame!</h1>
+        <h1 id="pagetitle" class="ui header"><img src="icons8-critical-thinking-60.png" class="ui circular image">Quizzical: The Trivia Minigame!</h1>
         <div id="testcontainer">
-            <div id="titlecontainer">
-                <h1 class="testtitle" id="testtitle">Test your knowledge with Quizzical!</h1>
-                <button id="startbutton" onclick="start();">Start</button>
-            </div>
+            <h1 class="testtitle" id="testtitle">Test your knowledge with Quizzical!</h1>
+            <button id="startbutton" onclick="start();" class="ui red loading button">Start</button>
         </div>
         <ul id="questions"></ul>
     </body>
-</hmtl>
+</html>
