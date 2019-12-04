@@ -16,7 +16,6 @@
 #testcontainer {
     display: flex;
     flex-direction: column;
-    align-content: center;
     justify-content: center;
     width: 100%;
     height: 100%;
@@ -28,9 +27,8 @@
 }
 
 #startbutton {
-    height: 50px;
-    width: 400px;
-    margin: 15px;
+    width: 30%;
+    margin-left: 35%;
 }
 
 #questiontitle {
