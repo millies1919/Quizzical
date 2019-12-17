@@ -7,7 +7,7 @@ Ten new questions can then be grabbed via the restart button.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Being Pure JavaScript, once the files are downloaded you can simple drag the index.html file to your browser.
+Being Pure JavaScript, once the files are downloaded you can simply drag the index.html file to your browser.
 
 ### Prerequisites
 
